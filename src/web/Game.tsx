@@ -220,28 +220,29 @@ function SynergyStrip({ onOpenSynergyBook }: { onOpenSynergyBook: () => void }):
     Lancer: 'No set bonus yet (future spear-line effects).',
   };
   return (
-    <div style={{ position: 'absolute', top: 8, left: 8, right: 8, display: 'flex', gap: 8, justifyContent: 'space-between', alignItems: 'center', pointerEvents: 'none', zIndex: 1 }}>
-      <div style={{ display: 'flex', gap: 8, pointerEvents: 'auto' }}>
+    <div style={{ marginBottom: 12, padding: '8px 12px', display: 'flex', gap: 8, justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 8 }}>
         <button onClick={() => setOpen(true)} style={{ padding: '4px 8px', borderRadius: 8, border: '1px solid var(--panel-border)', background: 'var(--panel)', color: 'var(--text)', fontWeight: 800, cursor: 'pointer', boxShadow: 'var(--shadow)' }}>Synergies</button>
         <button onClick={() => setOpen(true)} title="Open synergy help" style={{ padding: '4px 8px', borderRadius: 8, border: '1px solid var(--panel-border)', background: 'var(--panel)', color: 'var(--text)', fontWeight: 800, cursor: 'pointer', boxShadow: 'var(--shadow)' }}>?</button>
         <button onClick={onOpenSynergyBook} style={{ padding: '4px 8px', borderRadius: 8, border: '1px solid var(--panel-border)', background: 'var(--panel)', color: 'var(--text)', fontWeight: 800, cursor: 'pointer', boxShadow: 'var(--shadow)' }}>Duo/Trio Book</button>
       </div>
-      <div style={{ display: 'flex', gap: 8, justifyContent: 'center', pointerEvents: 'auto' }}>
+      <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
         {entries.length > 0 && entries.map(([name, n]) => {
         const tier = tierOf(n);
         const color = tier>=3?'#22c55e':tier===2?'#0ea5e9':tier===1?'#64748b':'#94a3b8';
         const th = THRESHOLDS[name] || [2,4,6];
         const next = th.find((t) => n < t) ?? th[th.length-1];
         return (
-          <div key={name} style={{ pointerEvents: 'auto', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 10px', borderRadius: 999, background: 'var(--panel)', border: '1px solid var(--panel-border)', boxShadow: 'var(--shadow)', color: 'var(--text)', cursor: 'pointer' }} title={`${name}: ${n} (${th.join('/')})`} onClick={() => setFocus(name)}>
+          <div key={name} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 10px', borderRadius: 999, background: 'var(--panel)', border: '1px solid var(--panel-border)', boxShadow: 'var(--shadow)', color: 'var(--text)', cursor: 'pointer' }} title={`${name}: ${n} (${th.join('/')})`} onClick={() => setFocus(name)}>
             <span style={{ fontWeight: 900, letterSpacing: 0.4, color: 'var(--text)' }}>{name}</span>
             <span style={{ fontWeight: 900, color }}>{label(tier)}</span>
             <span style={{ fontSize: 11, color: 'var(--muted)' }}>{n}/{next}</span>
           </div>
         );
       })}
+      </div>
       {open && (
-        <div style={{ position: 'absolute', top: 36, left: 8, right: 8, margin: '0 auto', maxWidth: 680, background: 'var(--panel)', border: '1px solid var(--panel-border)', borderRadius: 12, boxShadow: 'var(--shadow)', padding: 12, pointerEvents: 'auto' }}>
+        <div style={{ position: 'absolute', top: 50, left: 8, right: 8, margin: '0 auto', maxWidth: 680, background: 'var(--panel)', border: '1px solid var(--panel-border)', borderRadius: 12, boxShadow: 'var(--shadow)', padding: 12, zIndex: 10 }}>
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
             <div style={{ fontWeight: 900, fontSize: 14, color: 'var(--text)' }}>Synergies</div>
             <button onClick={() => setOpen(false)} style={{ marginLeft: 'auto', padding: '4px 8px', borderRadius: 8, border: '1px solid var(--panel-border)', background: 'var(--panel)', color: 'var(--text)', cursor: 'pointer', boxShadow: 'var(--shadow)' }}>Close</button>
@@ -269,7 +270,6 @@ function SynergyStrip({ onOpenSynergyBook }: { onOpenSynergyBook: () => void }):
           </div>
         </div>
       )}
-      </div>
     </div>
   );
 }
@@ -551,8 +551,10 @@ export function Game(): JSX.Element {
         <div style={{ position: 'relative', transition: 'transform 60ms ease', transform: shakeKey ? `translate(${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px, ${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px)` : 'none' }} className="panel soft" >
           <SynergyStrip onOpenSynergyBook={() => setShowSynergyBook(true)} />
           <div style={{ display: 'flex', gap: 12, alignItems: 'start' }}>
-            <Board />
-            <div className="panel soft" style={{ width: 280, maxHeight: '60vh', overflow: 'auto', padding: 8 }}>
+            <div style={{ flex: '1 1 auto' }}>
+              <Board />
+            </div>
+            <div className="panel soft" style={{ width: 280, flexShrink: 0, maxHeight: '60vh', overflow: 'auto', padding: 8 }}>
               <DuoPanel />
             </div>
           </div>

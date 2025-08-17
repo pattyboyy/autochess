@@ -93,10 +93,43 @@ export function Shop(): JSX.Element {
 
   return (
     <div style={{ padding: 12 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ fontWeight: 600 }}>Shop</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <div style={{ 
+          fontSize: 28, 
+          fontWeight: 900, 
+          letterSpacing: 4,
+          textTransform: 'uppercase',
+          position: 'relative',
+          display: 'inline-block',
+          color: '#FFD700',
+          textShadow: `
+            0 0 10px #FF6B6B,
+            0 0 20px #FF6B6B,
+            0 0 30px #FF6B6B,
+            0 0 40px #FFD700,
+            2px 2px 0px #FF1744,
+            -2px -2px 0px #00E676,
+            2px -2px 0px #2196F3,
+            -2px 2px 0px #9C27B0
+          `,
+          animation: 'shopPulse 2s ease-in-out infinite',
+        }}>
+          SHOP
+        </div>
         <div style={{ fontSize: 12, color: 'var(--muted)' }}>Gold: <span style={{ color: 'var(--accent)', fontWeight: 700 }}>{gold}</span> · Lv {level}</div>
       </div>
+      <style>{`
+        @keyframes shopPulse {
+          0%, 100% { 
+            transform: scale(1);
+            filter: brightness(1);
+          }
+          50% { 
+            transform: scale(1.05);
+            filter: brightness(1.2);
+          }
+        }
+      `}</style>
       <div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))' }}>
         {shop.map((u: ShopItem) => {
           // Determine if this shop unit's template is currently on the player's board
