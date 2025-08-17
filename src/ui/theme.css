@@ -182,24 +182,12 @@ main {
 .soft-scroll::-webkit-scrollbar-track { background: rgba(2, 6, 23, 0.06); }
 
 /* Game grid */
-.game-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
 .game-grid {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 260px 1fr 480px;
   gap: 16px;
+  height: 100%;
   position: relative;
-}
-
-.bottom-panels {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 16px;
 }
 
 .left-panel, .center-panel, .right-panel {
@@ -211,10 +199,16 @@ main {
   .game-grid {
     grid-template-columns: 1fr;
   }
+
+  .right-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
 }
 
-@media (max-width: 768px) {
-  .bottom-panels {
+@media (max-width: 600px) {
+  .right-panel {
     grid-template-columns: 1fr;
   }
 }

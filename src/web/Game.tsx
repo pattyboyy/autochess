@@ -548,8 +548,7 @@ export function Game(): JSX.Element {
   }, [togglePause]);
 
   return (
-    <div className="game-layout">
-      <div className="game-grid">
+    <div className="game-grid">
       <div className="left-panel">
         <div className="panel soft soft-scroll">
           <Shop />
@@ -629,12 +628,11 @@ export function Game(): JSX.Element {
         </div>
         <CompactLog />
       </div>
-      </div>
-      <div className="bottom-panels">
-        <div className="panel soft soft-scroll">
+      <div className="right-panel stack-16">
+        <div className="panel soft soft-scroll" style={{ maxHeight: '46vh' }}>
           <DamagePanel />
         </div>
-        <div className="panel soft soft-scroll">
+        <div className="panel soft soft-scroll" style={{ maxHeight: '46vh' }}>
           <Leaderboard />
         </div>
       </div>
