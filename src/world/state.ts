@@ -37,7 +37,7 @@ export const useGameStore = create<GameState & GameActions>()((set, get) => ({
   combatSpeed: 0.5,
   paused: false,
   xp: 0,
-  cellSize: 100,
+  cellSize: 70,
   bench: [],
   units: {},
   board: {},

@@ -4,7 +4,6 @@ import { Board } from './components/Board';
 import { Bench } from './components/Bench';
 import { Shop } from './components/Shop';
 import { Controls } from './components/Controls';
-import { Leaderboard } from './components/Leaderboard';
 import { getUnitTraits } from '../world/units';
 import { SynergyBook } from './components/SynergyBook';
 
@@ -148,7 +147,7 @@ function DuoPanel(): JSX.Element {
     return active;
   }, [board, units]);
   return (
-    <div className="panel soft" style={{ padding: 8, position: 'sticky', top: 96, marginTop: 40 }}>
+    <div>
       <div style={{ fontWeight: 900, marginBottom: 8 }}>Active Duos & Trios</div>
       <div style={{ display: 'grid', gap: 6 }}>
         {items.length === 0 && <div style={{ fontSize: 12, color: 'var(--muted)' }}>No duo or trio synergies active.</div>}
@@ -305,46 +304,13 @@ function SettingsMenu(): JSX.Element {
   );
 }
 
-function DamagePanel(): JSX.Element {
-  const participants = useGameStore((s) => s.damageParticipants || []);
-  const units = useGameStore((s) => s.units);
-  const dmg = useGameStore((s) => s.damageThisRound || {});
-  // Use the snapshot of participants to keep units visible after death
-  const entries: Array<{ id: string; name: string; value: number }> = participants
-    .map((id) => {
-      const u = units[id];
-      if (!u) return null;
-      const name = (u.templateKey.charAt(0).toUpperCase() + u.templateKey.slice(1)).replace(/^[a-z]/, (m) => m.toUpperCase());
-      return { id: id, name, value: dmg[id] || 0 };
-    })
-    .filter(Boolean) as Array<{ id: string; name: string; value: number }>;
-  entries.sort((a, b) => b.value - a.value);
-  const max = Math.max(1, ...entries.map((e) => e.value));
-  return (
-    <div style={{ padding: 12 }}>
-      <div style={{ fontWeight: 700, marginBottom: 8 }}>Damage This Round</div>
-      <div style={{ display: 'grid', gap: 8 }}>
-        {entries.map((e) => (
-          <div key={e.id} style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'center', gap: 8 }}>
-            <div style={{ fontSize: 12, color: 'var(--text)' }}>{e.name}</div>
-            <div style={{ fontSize: 12, color: 'var(--muted)' }}>{e.value}</div>
-            <div style={{ gridColumn: '1 / span 2', height: 6, background: 'rgba(0,0,0,0.15)', borderRadius: 999, overflow: 'hidden', border: '1px solid var(--panel-border)' }}>
-              <div style={{ width: `${(e.value / max) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #38bdf8, #0ea5e9)', borderRadius: 999 }} />
-            </div>
-          </div>
-        ))}
-        {entries.length === 0 && <div style={{ color: 'var(--muted)', fontSize: 12 }}>No player units deployed.</div>}
-      </div>
-    </div>
-  );
-}
 
 function CompactLog(): JSX.Element {
   const log = useGameStore((s) => s.log);
   const [expanded, setExpanded] = useState(false);
   const items = log.slice(-8);
   return (
-    <div className="panel soft soft-scroll" style={{ marginTop: 6, maxHeight: expanded ? 180 : 110 }}>
+    <div className="panel soft soft-scroll" style={{ marginTop: 6, maxHeight: expanded ? 120 : 80 }}>
       <div style={{ display: 'flex', alignItems: 'center', padding: 10, borderBottom: '1px solid var(--panel-border)' }}>
         <div style={{ fontWeight: 800 }}>Activity</div>
         <button onClick={() => setExpanded((v) => !v)} style={{ marginLeft: 'auto', padding: '4px 8px', borderRadius: 8, border: '1px solid var(--panel-border)', background: 'rgba(0,0,0,0.04)', cursor: 'pointer' }}>{expanded ? 'Less' : 'More'}</button>
@@ -550,37 +516,8 @@ export function Game(): JSX.Element {
   return (
     <div className="game-grid">
       <div className="left-panel">
-        <div className="panel soft soft-scroll">
+        <div className="panel soft soft-scroll" style={{ flex: '1 1 auto', minHeight: 0, overflow: 'auto' }}>
           <Shop />
-        </div>
-        <div style={{
-          marginTop: 8,
-          padding: '10px 16px',
-          borderRadius: 10,
-          border: '1px solid #38bdf8',
-          background: 'linear-gradient(110deg, #0ea5e9 0%, #38bdf8 50%, #0ea5e9 100%)',
-          color: '#ffffff',
-          fontWeight: 800,
-          textAlign: 'center',
-          textShadow: '0 1px 3px rgba(0,0,0,0.5)',
-          boxShadow: '0 10px 25px rgba(14, 165, 233, 0.4), inset 0 1px 1px rgba(255,255,255,0.2)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}>
-          <span style={{ position: 'absolute', inset: -2, borderRadius: 12, boxShadow: '0 0 0 0 rgba(56, 189, 248, 0.7)', animation: 'pulseGlow 1.8s ease-in-out infinite', pointerEvents: 'none' }} />
-          <span style={{ position: 'absolute', top: 0, left: '-100%', width: '100%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)', animation: 'shimmer 3s infinite', animationDelay: '0.5s', pointerEvents: 'none' }} />
-          <span style={{ position: 'relative' }}>Level up to place more units on the board!</span>
-          <style>{`
-            @keyframes pulseGlow {
-              0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
-              70% { box-shadow: 0 0 0 16px rgba(56, 189, 248, 0); }
-              100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
-            }
-            @keyframes shimmer {
-              0% { transform: translateX(-100%); }
-              100% { transform: translateX(200%); }
-            }
-          `}</style>
         </div>
       </div>
       <div className="center-panel">
@@ -613,9 +550,11 @@ export function Game(): JSX.Element {
         </div>
         <div style={{ position: 'relative', transition: 'transform 60ms ease', transform: shakeKey ? `translate(${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px, ${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px)` : 'none' }} className="panel soft" >
           <SynergyStrip onOpenSynergyBook={() => setShowSynergyBook(true)} />
-          <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 8, alignItems: 'start' }}>
-            <DuoPanel />
+          <div style={{ display: 'flex', gap: 12, alignItems: 'start' }}>
             <Board />
+            <div className="panel soft" style={{ width: 280, maxHeight: '60vh', overflow: 'auto', padding: 8 }}>
+              <DuoPanel />
+            </div>
           </div>
           <ResultOverlay />
           <GameOverOverlay />
@@ -627,14 +566,6 @@ export function Game(): JSX.Element {
           <Bench />
         </div>
         <CompactLog />
-      </div>
-      <div className="right-panel stack-16">
-        <div className="panel soft soft-scroll" style={{ maxHeight: '46vh' }}>
-          <DamagePanel />
-        </div>
-        <div className="panel soft soft-scroll" style={{ maxHeight: '46vh' }}>
-          <Leaderboard />
-        </div>
       </div>
       {showSynergyBook && <SynergyBook onClose={() => setShowSynergyBook(false)} />}
     </div>

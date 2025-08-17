@@ -156,7 +156,7 @@ body {
 }
 
 main {
-  padding: 16px;
+  padding: 8px;
 }
 
 /* Panels */
@@ -184,32 +184,64 @@ main {
 /* Game grid */
 .game-grid {
   display: grid;
-  grid-template-columns: 260px 1fr 480px;
-  gap: 16px;
-  height: 100%;
+  grid-template-columns: 280px 1fr;
+  gap: 12px;
+  height: calc(100vh - 80px);
   position: relative;
+  padding: 12px;
+  overflow: hidden;
 }
 
-.left-panel, .center-panel, .right-panel {
+.left-panel, .center-panel {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.left-panel {
+  gap: 8px;
+}
+
+.center-panel {
+  gap: 8px;
+  overflow-y: auto;
+}
+
+/* Shop panel height */
+.left-panel .panel:first-child {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* Board container */
+.center-panel .panel:first-child {
+  flex: 0 1 auto;
+}
+
+/* Controls panel */
+.center-panel .panel:nth-child(2) {
+  flex: 0 0 auto;
+}
+
+/* Bench panel */
+.center-panel .panel:nth-child(3) {
+  flex: 0 0 auto;
 }
 
 /* Responsive adjustments */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
   .game-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .right-panel {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    grid-template-columns: 260px 1fr;
   }
 }
 
-@media (max-width: 600px) {
-  .right-panel {
-    grid-template-columns: 1fr;
+@media (max-width: 1024px) {
+  .game-grid {
+    grid-template-columns: 240px 1fr;
+    gap: 8px;
   }
 }
 
