@@ -120,7 +120,7 @@ function QuickHUD(): JSX.Element {
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <div className="pill" title={`Level ${level} · XP ${xp}/${xpToNext}`} style={{ cursor: 'default' }}>
         <span className="key">Lv</span> <strong>{level}</strong>
-        <div style={{ width: 80, height: 6, background: 'rgba(0,0,0,0.15)', borderRadius: 999, overflow: 'hidden', border: '1px solid var(--panel-border)', marginLeft: 8 }}>
+        <div style={{ width: '5rem', height: 6, background: 'rgba(0,0,0,0.15)', borderRadius: 999, overflow: 'hidden', border: '1px solid var(--panel-border)', marginLeft: 8 }}>
           <div style={{ width: `${pct*100}%`, height: '100%', background: 'linear-gradient(90deg, var(--accent), #fff)', borderRadius: 999 }} />
         </div>
       </div>

@@ -190,7 +190,7 @@ main {
 
 .game-grid {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 16.25rem 1fr;
   gap: 16px;
   position: relative;
 }
@@ -207,6 +207,11 @@ main {
 }
 
 /* Responsive adjustments */
+@media (max-width: 1440px) {
+  html {
+    font-size: 14px;
+  }
+}
 @media (max-width: 1200px) {
   .game-grid {
     grid-template-columns: 1fr;
