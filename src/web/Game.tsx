@@ -148,7 +148,7 @@ function DuoPanel(): JSX.Element {
     return active;
   }, [board, units]);
   return (
-    <div className="panel soft" style={{ padding: '0.5rem', position: 'sticky', top: '6rem', marginTop: '2.5rem' }}>
+    <div className="panel soft" style={{ padding: 8, position: 'sticky', top: 96, marginTop: 40 }}>
       <div style={{ fontWeight: 900, marginBottom: 8 }}>Active Duos & Trios</div>
       <div style={{ display: 'grid', gap: 6 }}>
         {items.length === 0 && <div style={{ fontSize: 12, color: 'var(--muted)' }}>No duo or trio synergies active.</div>}
@@ -287,7 +287,7 @@ function SettingsMenu(): JSX.Element {
         <span className="key">UI</span> <strong>Settings</strong>
       </button>
       {open && (
-        <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: 6, background: 'var(--panel)', border: '1px solid var(--panel-border)', borderRadius: 10, boxShadow: 'var(--shadow)', padding: 10, zIndex: 5, minWidth: 220 }}>
+        <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: 6, background: 'var(--panel)', border: '1px solid var(--panel-border)', borderRadius: 10, boxShadow: 'var(--shadow)', padding: 10, zIndex: 5, width: 240 }}>
           <div style={{ display: 'grid', gap: 10 }}>
             <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, fontSize: 12, color: 'var(--text)' }}>
               <span>Always show ranges</span>
@@ -614,7 +614,7 @@ export function Game(): JSX.Element {
         </div>
         <div style={{ position: 'relative', transition: 'transform 60ms ease', transform: shakeKey ? `translate(${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px, ${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px)` : 'none' }} className="panel soft" >
           <SynergyStrip onOpenSynergyBook={() => setShowSynergyBook(true)} />
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(auto, 240px) 1fr', gap: 8, alignItems: 'start' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 8, alignItems: 'start' }}>
             <DuoPanel />
             <Board />
           </div>
