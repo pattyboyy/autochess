@@ -209,7 +209,7 @@ main {
 /* Responsive adjustments */
 @media (max-width: 1440px) {
   html {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 @media (max-width: 1200px) {
