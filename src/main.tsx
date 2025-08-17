@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './ui/App';
-import './ui/theme.css?v=2';
+import './ui/theme.css';
 
 const root = createRoot(document.getElementById('root')!);
 root.render(

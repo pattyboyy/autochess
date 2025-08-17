@@ -148,7 +148,7 @@ function DuoPanel(): JSX.Element {
     return active;
   }, [board, units]);
   return (
-    <div className="panel soft" style={{ padding: '0.5rem', marginTop: '2.5rem' }}>
+    <div className="panel soft" style={{ padding: '0.5rem', position: 'sticky', top: '6rem', marginTop: '2.5rem' }}>
       <div style={{ fontWeight: 900, marginBottom: 8 }}>Active Duos & Trios</div>
       <div style={{ display: 'grid', gap: 6 }}>
         {items.length === 0 && <div style={{ fontSize: 12, color: 'var(--muted)' }}>No duo or trio synergies active.</div>}
@@ -549,88 +549,88 @@ export function Game(): JSX.Element {
 
   return (
     <div className="game-layout">
-      <div className="main-content">
-        <div className="shop-area">
-          <div className="panel soft soft-scroll">
-            <Shop />
-          </div>
-          <div style={{
-            marginTop: 8,
-            padding: '10px 16px',
-            borderRadius: 10,
-            border: '1px solid #38bdf8',
-            background: 'linear-gradient(110deg, #0ea5e9 0%, #38bdf8 50%, #0ea5e9 100%)',
-            color: '#ffffff',
-            fontWeight: 800,
-            textAlign: 'center',
-            textShadow: '0 1px 3px rgba(0,0,0,0.5)',
-            boxShadow: '0 10px 25px rgba(14, 165, 233, 0.4), inset 0 1px 1px rgba(255,255,255,0.2)',
-            position: 'relative',
-            overflow: 'hidden',
-          }}>
-            <span style={{ position: 'absolute', inset: -2, borderRadius: 12, boxShadow: '0 0 0 0 rgba(56, 189, 248, 0.7)', animation: 'pulseGlow 1.8s ease-in-out infinite', pointerEvents: 'none' }} />
-            <span style={{ position: 'absolute', top: 0, left: '-100%', width: '100%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)', animation: 'shimmer 3s infinite', animationDelay: '0.5s', pointerEvents: 'none' }} />
-            <span style={{ position: 'relative' }}>Level up to place more units on the board!</span>
-            <style>{`
-              @keyframes pulseGlow {
-                0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
-                70% { box-shadow: 0 0 0 16px rgba(56, 189, 248, 0); }
-                100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
-              }
-              @keyframes shimmer {
-                0% { transform: translateX(-100%); }
-                100% { transform: translateX(200%); }
-              }
-            `}</style>
-          </div>
+      <div className="game-grid">
+      <div className="left-panel">
+        <div className="panel soft soft-scroll">
+          <Shop />
         </div>
-        <div className="board-area">
-          <div className="hud">
-            <div className="pill">
-              <svg width={14} height={14} viewBox="0 0 24 24" fill="#94a3b8" aria-hidden style={{ marginRight: 4 }}>
-                <circle cx="12" cy="12" r="10" />
-              </svg>
-              <span className="key">Phase</span> <strong>{phase}</strong>
-            </div>
-            <div className="pill">
-              <svg width={14} height={14} viewBox="0 0 24 24" fill="#94a3b8" aria-hidden style={{ marginRight: 4 }}>
-                <path d="M7 4h10v2H7zM7 11h10v2H7zM7 18h10v2H7z" />
-              </svg>
-              <span className="key">Round</span> <strong>{round}</strong>
-            </div>
-            <div className="pill ok">
-              <svg width={14} height={14} viewBox="0 0 24 24" fill="var(--accent)" aria-hidden style={{ marginRight: 4 }}>
-                <path d="M12 2l3 7h7l-5.5 4.1L18 21l-6-4-6 4 1.5-7.9L2 9h7z" />
-              </svg>
-              <span className="key">Gold</span> <strong style={{ color: 'var(--accent)' }}>{gold}</strong>
-            </div>
-            <div className="pill warn">
-              <svg width={14} height={14} viewBox="0 0 24 24" fill="var(--warn)" aria-hidden style={{ marginRight: 4 }}>
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.74 0 3.41 1.01 4.22 2.55C11.09 5.01 12.76 4 14.5 4 17 4 19 6 19 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-              <span className="key">HP</span> <strong style={{ color: 'var(--warn)' }}>{health}</strong>
-            </div>
-            <SettingsMenu />
-          </div>
-          <div style={{ position: 'relative', transition: 'transform 60ms ease', transform: shakeKey ? `translate(${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px, ${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px)` : 'none' }} className="panel soft" >
-            <SynergyStrip onOpenSynergyBook={() => setShowSynergyBook(true)} />
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(auto, 240px) 1fr', gap: 8, alignItems: 'start' }}>
-              <DuoPanel />
-              <Board />
-            </div>
-            <ResultOverlay />
-            <GameOverOverlay />
-          </div>
-          <div className="panel soft" style={{ marginTop: 6, zIndex: 2 }}>
-            <Controls />
-          </div>
-          <div className="panel soft" style={{ marginTop: 6 }}>
-            <Bench />
-          </div>
-          <CompactLog />
+        <div style={{
+          marginTop: 8,
+          padding: '10px 16px',
+          borderRadius: 10,
+          border: '1px solid #38bdf8',
+          background: 'linear-gradient(110deg, #0ea5e9 0%, #38bdf8 50%, #0ea5e9 100%)',
+          color: '#ffffff',
+          fontWeight: 800,
+          textAlign: 'center',
+          textShadow: '0 1px 3px rgba(0,0,0,0.5)',
+          boxShadow: '0 10px 25px rgba(14, 165, 233, 0.4), inset 0 1px 1px rgba(255,255,255,0.2)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}>
+          <span style={{ position: 'absolute', inset: -2, borderRadius: 12, boxShadow: '0 0 0 0 rgba(56, 189, 248, 0.7)', animation: 'pulseGlow 1.8s ease-in-out infinite', pointerEvents: 'none' }} />
+          <span style={{ position: 'absolute', top: 0, left: '-100%', width: '100%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)', animation: 'shimmer 3s infinite', animationDelay: '0.5s', pointerEvents: 'none' }} />
+          <span style={{ position: 'relative' }}>Level up to place more units on the board!</span>
+          <style>{`
+            @keyframes pulseGlow {
+              0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+              70% { box-shadow: 0 0 0 16px rgba(56, 189, 248, 0); }
+              100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+            }
+            @keyframes shimmer {
+              0% { transform: translateX(-100%); }
+              100% { transform: translateX(200%); }
+            }
+          `}</style>
         </div>
       </div>
-    <div className="bottom-panels">
+      <div className="center-panel">
+        <div className="hud">
+          <div className="pill">
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="#94a3b8" aria-hidden style={{ marginRight: 4 }}>
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+            <span className="key">Phase</span> <strong>{phase}</strong>
+          </div>
+          <div className="pill">
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="#94a3b8" aria-hidden style={{ marginRight: 4 }}>
+              <path d="M7 4h10v2H7zM7 11h10v2H7zM7 18h10v2H7z" />
+            </svg>
+            <span className="key">Round</span> <strong>{round}</strong>
+          </div>
+          <div className="pill ok">
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="var(--accent)" aria-hidden style={{ marginRight: 4 }}>
+              <path d="M12 2l3 7h7l-5.5 4.1L18 21l-6-4-6 4 1.5-7.9L2 9h7z" />
+            </svg>
+            <span className="key">Gold</span> <strong style={{ color: 'var(--accent)' }}>{gold}</strong>
+          </div>
+          <div className="pill warn">
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="var(--warn)" aria-hidden style={{ marginRight: 4 }}>
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.74 0 3.41 1.01 4.22 2.55C11.09 5.01 12.76 4 14.5 4 17 4 19 6 19 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span className="key">HP</span> <strong style={{ color: 'var(--warn)' }}>{health}</strong>
+          </div>
+          <SettingsMenu />
+        </div>
+        <div style={{ position: 'relative', transition: 'transform 60ms ease', transform: shakeKey ? `translate(${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px, ${(Math.random()*4-2)*(useGameStore.getState().shakeIntensity||1)}px)` : 'none' }} className="panel soft" >
+          <SynergyStrip onOpenSynergyBook={() => setShowSynergyBook(true)} />
+          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(auto, 240px) 1fr', gap: 8, alignItems: 'start' }}>
+            <DuoPanel />
+            <Board />
+          </div>
+          <ResultOverlay />
+          <GameOverOverlay />
+        </div>
+        <div className="panel soft" style={{ marginTop: 6, position: 'sticky', top: 8, zIndex: 2 }}>
+          <Controls />
+        </div>
+        <div className="panel soft" style={{ marginTop: 6 }}>
+          <Bench />
+        </div>
+        <CompactLog />
+      </div>
+      </div>
+      <div className="bottom-panels">
         <div className="panel soft soft-scroll">
           <DamagePanel />
         </div>

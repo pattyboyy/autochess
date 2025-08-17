@@ -15,7 +15,7 @@ export function App(): JSX.Element {
           <QuickHUD />
         </div>
       </header>
-      <main className="app-main">
+      <main>
         <Game />
         <ToastHost />
       </main>
