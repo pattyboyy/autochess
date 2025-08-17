@@ -549,8 +549,39 @@ export function Game(): JSX.Element {
 
   return (
     <div className="game-grid">
-      <div className="panel soft soft-scroll">
-        <Shop />
+      <div>
+        <div className="panel soft soft-scroll">
+          <Shop />
+        </div>
+        <div style={{
+          marginTop: 8,
+          padding: '10px 16px',
+          borderRadius: 10,
+          border: '1px solid #38bdf8',
+          background: 'linear-gradient(110deg, #0ea5e9 0%, #38bdf8 50%, #0ea5e9 100%)',
+          color: '#ffffff',
+          fontWeight: 800,
+          textAlign: 'center',
+          textShadow: '0 1px 3px rgba(0,0,0,0.5)',
+          boxShadow: '0 10px 25px rgba(14, 165, 233, 0.4), inset 0 1px 1px rgba(255,255,255,0.2)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}>
+          <span style={{ position: 'absolute', inset: -2, borderRadius: 12, boxShadow: '0 0 0 0 rgba(56, 189, 248, 0.7)', animation: 'pulseGlow 1.8s ease-in-out infinite', pointerEvents: 'none' }} />
+          <span style={{ position: 'absolute', top: 0, left: '-100%', width: '100%', height: '100%', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)', animation: 'shimmer 3s infinite', animationDelay: '0.5s', pointerEvents: 'none' }} />
+          <span style={{ position: 'relative' }}>Level up to place more units on the board!</span>
+          <style>{`
+            @keyframes pulseGlow {
+              0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+              70% { box-shadow: 0 0 0 16px rgba(56, 189, 248, 0); }
+              100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+            }
+            @keyframes shimmer {
+              0% { transform: translateX(-100%); }
+              100% { transform: translateX(200%); }
+            }
+          `}</style>
+        </div>
       </div>
       <div>
         <div className="hud">
