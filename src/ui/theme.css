@@ -156,8 +156,7 @@ body {
 }
 
 main {
-  padding: 1rem;
-  overflow: hidden; /* Prevent scrollbars from main content area */
+  padding: 16px;
 }
 
 /* Panels */
@@ -184,24 +183,23 @@ main {
 
 /* Game grid */
 .game-layout {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  height: calc(100vh - 80px); /* Full viewport height minus header/padding */
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .game-grid {
   display: grid;
   grid-template-columns: 16.25rem 1fr;
-  gap: 1rem;
-  overflow: hidden; /* Prevent internal scrolling */
+  gap: 16px;
+  position: relative;
 }
 
 .bottom-panels {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  flex-shrink: 0; /* Prevent bottom panels from shrinking */
+  gap: 16px;
+  margin-top: 16px;
 }
 
 .left-panel, .center-panel, .right-panel {
