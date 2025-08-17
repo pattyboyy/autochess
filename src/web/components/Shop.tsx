@@ -1,26 +1,26 @@
 import React from 'react';
 import { useGameStore } from '../../world/state';
 import { UNIT_TEMPLATES, getUnitVisual, getUnitTraits } from '../../world/units';
-import type { GameState, ShopItem, Ability } from '../../world/types';
+import type { ShopItem, Ability } from '../../world/types';
 // no direct imports needed from UnitChip; tooltip mirrors its content
 
 export function Shop(): JSX.Element {
-  const shop = useGameStore((s: GameState) => s.shop);
-  const gold = useGameStore((s: GameState) => s.gold);
-  const level = useGameStore((s: GameState) => s.level);
-  const shopLocked = useGameStore((s: GameState) => s.shopLocked);
-  const xp = useGameStore((s: GameState) => s.xp);
-  const buyXp = useGameStore((s: any) => s.buyXp);
-  const board = useGameStore((s: GameState) => s.board);
-  const units = useGameStore((s: GameState) => s.units);
-  const bench = useGameStore((s: GameState) => s.bench);
+  const shop = useGameStore((s) => s.shop);
+  const gold = useGameStore((s) => s.gold);
+  const level = useGameStore((s) => s.level);
+  const shopLocked = useGameStore((s) => s.shopLocked);
+  const xp = useGameStore((s) => s.xp);
+  const buyXp = useGameStore((s) => s.buyXp);
+  const board = useGameStore((s) => s.board);
+  const units = useGameStore((s) => s.units);
+  const bench = useGameStore((s) => s.bench);
   // resolve to ensure selector updates, even though ShopCard also accesses store
-  useGameStore((s: any) => s.buyUnit);
-  const reroll = useGameStore((s: any) => s.reroll);
+  useGameStore((s) => s.buyUnit);
+  const reroll = useGameStore((s) => s.reroll);
   // keep for state updates through FreezeToggle below
   // resolve to ensure selector updates, even though FreezeToggle reads internal state
-  useGameStore((s: GameState) => s.shopFrozen ?? {});
-  const focusTrait = useGameStore((s: GameState) => s.shopFocusTrait);
+  useGameStore((s) => s.shopFrozen ?? {});
+  const focusTrait = useGameStore((s) => s.shopFocusTrait);
 
   // Compute current player-owned templates and trait counts (board + bench)
   const ownedTemplates = React.useMemo(() => {
@@ -196,8 +196,8 @@ function describeAbility(a: Ability | undefined): string {
 
 function ShopCard({ item, gold, focusTrait, isOnBoard, onBoardCount, synergy }: { item: ShopItem; gold: number; focusTrait?: string; isOnBoard?: boolean; onBoardCount?: number; synergy?: { traitUps: Array<{ trait: string; from: number; to: number; fromTier: number; toTier: number; need: number }>; duo?: { label: string; pair: [string,string] }; dupCount?: number } }): JSX.Element {
   const t = UNIT_TEMPLATES[item.templateKey];
-  const isFrozen = useGameStore((s: GameState) => !!(s.shopFrozen ?? {})[item.id]);
-  const buyUnit = useGameStore((s: any) => s.buyUnit);
+  const isFrozen = useGameStore((s) => !!(s.shopFrozen ?? {})[item.id]);
+  const buyUnit = useGameStore((s) => s.buyUnit);
   const visual = getUnitVisual(item.templateKey);
   const isFocus = !!(focusTrait && getUnitTraits(item.templateKey).includes(focusTrait));
   const [hover, setHover] = React.useState(false);
@@ -399,9 +399,9 @@ function getCssVar(name: string): string {
 }
 
 function LockToggle(): JSX.Element {
-  const locked = useGameStore((s: GameState) => s.shopLocked);
+  const locked = useGameStore((s) => s.shopLocked);
   const setLocked = React.useCallback((v: boolean) => {
-    useGameStore.setState((s: GameState) => ({ ...s, shopLocked: v } as any));
+    useGameStore.setState((s) => ({ ...s, shopLocked: v }));
   }, []);
   return (
     <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#aeb4c6' }}>
@@ -424,7 +424,7 @@ function rarityOfCost(cost: number): { label: string; bg: string; border: string
 
 function FreezeToggle({ id, frozen }: { id: string; frozen: boolean }): JSX.Element {
   const toggle = React.useCallback(() => {
-    useGameStore.setState((s: GameState) => ({ ...s, shopFrozen: { ...(s.shopFrozen ?? {}), [id]: !frozen } } as any));
+    useGameStore.setState((s) => ({ ...s, shopFrozen: { ...(s.shopFrozen ?? {}), [id]: !frozen } }));
   }, [id, frozen]);
   return (
     <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11, cursor: 'pointer' }}>
