@@ -190,6 +190,38 @@ main {
   position: relative;
 }
 
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .game-grid {
+    grid-template-columns: 1fr 480px;
+  }
+  .game-grid > div:first-child {
+    display: none; /* Hide shop on this breakpoint */
+  }
+}
+
+@media (max-width: 900px) {
+  main { padding: 8px; }
+  .game-grid {
+    grid-template-columns: 1fr;
+  }
+  .game-grid > div:first-child {
+    display: block; /* Show shop again */
+  }
+  .right-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    min-width: 0 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .right-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* HUD */
 .hud {
   display: flex;

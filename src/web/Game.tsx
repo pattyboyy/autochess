@@ -628,7 +628,7 @@ export function Game(): JSX.Element {
         </div>
         <CompactLog />
       </div>
-      <div className="stack-16" style={{ minWidth: 460 }}>
+      <div className="right-panel stack-16">
         <div className="panel soft soft-scroll" style={{ maxHeight: '46vh' }}>
           <DamagePanel />
         </div>
