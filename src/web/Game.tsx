@@ -549,7 +549,7 @@ export function Game(): JSX.Element {
 
   return (
     <div className="game-grid">
-      <div>
+      <div className="left-panel">
         <div className="panel soft soft-scroll">
           <Shop />
         </div>
@@ -583,7 +583,7 @@ export function Game(): JSX.Element {
           `}</style>
         </div>
       </div>
-      <div>
+      <div className="center-panel">
         <div className="hud">
           <div className="pill">
             <svg width={14} height={14} viewBox="0 0 24 24" fill="#94a3b8" aria-hidden style={{ marginRight: 4 }}>
@@ -628,14 +628,12 @@ export function Game(): JSX.Element {
         </div>
         <CompactLog />
       </div>
-      <div className="right-panel-container">
-        <div className="right-panel stack-16">
-          <div className="panel soft soft-scroll" style={{ maxHeight: '46vh' }}>
-            <DamagePanel />
-          </div>
-          <div className="panel soft soft-scroll" style={{ maxHeight: '46vh' }}>
-            <Leaderboard />
-          </div>
+      <div className="right-panel stack-16">
+        <div className="panel soft soft-scroll" style={{ maxHeight: '46vh' }}>
+          <DamagePanel />
+        </div>
+        <div className="panel soft soft-scroll" style={{ maxHeight: '46vh' }}>
+          <Leaderboard />
         </div>
       </div>
       {showSynergyBook && <SynergyBook onClose={() => setShowSynergyBook(false)} />}
